@@ -27,11 +27,27 @@ pipeline {
                 bat 'npm run coverage || exit /b 0'
             }
         }
+        
 
         stage('NPM Audit (Security Scan)') {
             steps {
                 bat 'npm audit || exit /b 0'
             }
         }
+        stage('SonarCloud Analysis') {
+    steps {
+        withCredentials([
+            string(
+                credentialsId: 'SONAR_TOKEN',
+                variable: 'SONAR_TOKEN'
+            )
+        ]) {
+            bat '''
+            "C:\\sonar-scanner\\bin\\sonar-scanner.bat" ^
+            -Dsonar.token=%SONAR_TOKEN%
+            '''
+        }
+    }
+}
     }
 }
