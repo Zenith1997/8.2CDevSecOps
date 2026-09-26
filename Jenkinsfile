@@ -34,7 +34,7 @@ pipeline {
                 bat 'npm audit || exit /b 0'
             }
         }
-        stage('SonarCloud Analysis') {
+      stage('SonarCloud Analysis') {
     steps {
         withCredentials([
             string(
@@ -43,10 +43,12 @@ pipeline {
             )
         ]) {
             bat '''
-            "C:\\sonar-scanner\\bin\\sonar-scanner.bat" ^
+            "C:\\Users\\dabar\\Downloads\\sonar-scanner-cli-8.1.0.6389-windows-x64\\sonar-scanner-8.1.0.6389-windows-x64\\bin\\sonar-scanner.bat" ^
             -Dsonar.token=%SONAR_TOKEN%
             '''
         }
+    }
+}
     }
 }
     }
